@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Grammatica Latina</title>
+    <style>
+      .demo {
+        border: 1px solid #c0c0c0;
+        border-collapse: collapse;
+        padding: 5px;
+      }
+      .demo th {
+
+        border: 1px solid #c0c0c0;
+        padding: 5px;
+        background: #F0F0F0;
+      }
+      .demo td {
+        border: 1px solid #c0c0c0;
+        padding: 5px;
+      }
+      input[readonly] {
+        font-weight: bold;
+        border-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+
+      <table class="demo">
+        <caption></caption>
+        <thead>
+          <tr>
+            <th>kasus</th>
+            <th>flicka</th>
+            <th>flickor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>nominative</th>
+            <td><input type="text" pattern="puella"  required /></td>
+            <td><input type="text" pattern="puellae" required /></td>
+          </tr>
+          <tr>
+            <th>genitiv</th>
+            <td><input type="text" pattern="puellae"   value="puellae"   readonly disabled /></td>
+            <td><input type="text" pattern="puellarum" value="puellarum" readonly disabled /></td>
+          </tr>
+          <tr>
+            <th>dativ</th>
+            <td><input type="text" pattern="puellae" value="puellae" readonly disabled /></td>
+            <td><input type="text" pattern="puellis" value="puellis" readonly disabled /></td>
+          </tr>
+          <tr>
+            <th>ackusativ</th>
+            <td><input type="text" pattern="puellam" required /></td>
+            <td><input type="text" pattern="puellas" required /></td>
+          </tr>
+          <tr>
+            <th>ablativ</th>
+            <td><input type="text" pattern="puella"  value="puella"  readonly disabled /></td>
+            <td><input type="text" pattern="puellis" value="puellis" readonly disabled /></td>
+          </tr>
+        <tbody>
+      </table>
+
+      <br>
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
