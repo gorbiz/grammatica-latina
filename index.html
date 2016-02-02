@@ -20,64 +20,71 @@
       }
     </style>
 
-    <script type="text/template">
-      TODO move the whole form into here
+    <script type="text/template" id="noun-form">
+      <form>
+        <table class="demo">
+          <caption></caption>
+          <thead>
+            <tr>
+              <th>kasus</th>
+              <th>flicka</th>
+              <th>flickor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>nominative</th>
+              <td><input type="text" pattern="%nom%"    required autofocus /></td>
+              <td><input type="text" pattern="%nom_pl%" required /></td>
+            </tr>
+            <tr>
+              <th>genitiv</th>
+              <td><input type="text" pattern="%gen%"    value="%gen%"   readonly disabled /></td>
+              <td><input type="text" pattern="%gen_pl%" value="%gen_pl%" readonly disabled /></td>
+            </tr>
+            <tr>
+              <th>dativ</th>
+              <td><input type="text" pattern="%dat%"    value="%dat%" readonly disabled /></td>
+              <td><input type="text" pattern="%dat_pl%" value="%dat_pl%" readonly disabled /></td>
+            </tr>
+            <tr>
+              <th>ackusativ</th>
+              <td><input type="text" pattern="%acc%"    required /></td>
+              <td><input type="text" pattern="%acc_pl%" required /></td>
+            </tr>
+            <tr>
+              <th>ablativ</th>
+              <td><input type="text" pattern="%abl%"    value="%abl%"  readonly disabled /></td>
+              <td><input type="text" pattern="%abl_pl%" value="%abl_pl%" readonly disabled /></td>
+            </tr>
+          <tbody>
+        </table>
+        <p>Deklinaton: <strong>%dec%</strong></p>
+        <input type="submit" value="Submit" />
+      </form>
     </script>
+  </head>
 
-    <script>
-      // TODO use ~:
-      var puella = {
-          dec: '1' // declenision
+  <body>
+  </body>
+
+  <script>
+    function template(templateid, data) {
+      return document.getElementById(templateid).innerHTML.replace(/%(\w*)%/g,function(m,key){return data.hasOwnProperty(key)?data[key]:"";});
+    }
+
+    var words = {
+      puella: {
+          dec: '1' // declension
         , nom: 'puella',  nom_pl: 'puellae'
         , gen: 'puellae', gen_pl: 'puellarum'
         , dat: 'puellae', dat_pl: 'puellis'
         , acc: 'puellam', acc_pl: 'puellas'
         , abl: 'puella',  abl_pl: 'puellis'
-      };
-      // TODO ~same for verb tenses?
-    </script>
-  </head>
-  <body>
-    <form>
-      <table class="demo">
-        <caption></caption>
-        <thead>
-          <tr>
-            <th>kasus</th>
-            <th>flicka</th>
-            <th>flickor</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>nominative</th>
-            <td><input type="text" pattern="puella"  required autofocus /></td>
-            <td><input type="text" pattern="puellae" required /></td>
-          </tr>
-          <tr>
-            <th>genitiv</th>
-            <td><input type="text" pattern="puellae"   value="puellae"   readonly disabled /></td>
-            <td><input type="text" pattern="puellarum" value="puellarum" readonly disabled /></td>
-          </tr>
-          <tr>
-            <th>dativ</th>
-            <td><input type="text" pattern="puellae" value="puellae" readonly disabled /></td>
-            <td><input type="text" pattern="puellis" value="puellis" readonly disabled /></td>
-          </tr>
-          <tr>
-            <th>ackusativ</th>
-            <td><input type="text" pattern="puellam" required /></td>
-            <td><input type="text" pattern="puellas" required /></td>
-          </tr>
-          <tr>
-            <th>ablativ</th>
-            <td><input type="text" pattern="puella"  value="puella"  readonly disabled /></td>
-            <td><input type="text" pattern="puellis" value="puellis" readonly disabled /></td>
-          </tr>
-        <tbody>
-      </table>
-      <br>
-      <input type="submit" value="Submit" />
-    </form>
-  </body>
+      }
+    };
+
+    var data = words.puella;
+    document.body.innerHTML = template("noun-form", data);
+  </script>
 </html>
