@@ -26,9 +26,9 @@
           <caption></caption>
           <thead>
             <tr>
-              <th>kasus</th>
-              <th>flicka</th>
-              <th>flickor</th>
+              <th>Kasus</th>
+              <th>Singular</th>
+              <th>Plural</th>
             </tr>
           </thead>
           <tbody>
@@ -74,7 +74,7 @@
     }
 
     var words = {
-      puella: {
+        puella: {
           dec: '1' // declension
         , nom: 'puella',  nom_pl: 'puellae'
         , gen: 'puellae', gen_pl: 'puellarum'
@@ -82,9 +82,65 @@
         , acc: 'puellam', acc_pl: 'puellas'
         , abl: 'puella',  abl_pl: 'puellis'
       }
+
+      , vinum: {
+          dec: '2' // declension
+        , nom: 'vinum',   nom_pl: 'vina'
+        , gen: 'vini',    gen_pl: 'vinorum'
+        , dat: 'vino',    dat_pl: 'vinis'
+        , acc: 'vinum',   acc_pl: 'vina'
+        , abl: 'vino',    abl_pl: 'vinis'
+      }
     };
 
-    var data = words.puella;
+    var data = words.vinum;
     document.body.innerHTML = template("noun-form", data);
+
+    // TODO make it possible to paste multiple words here (separate with \n\n)
+    var pasted = `
+Third declension neuter.
+nominative	nūmen	    nūmina
+genitive	  nūminis	  nūminum
+dative	    nūminī	  nūminibus
+accusative	nūmen	    nūmina
+ablative	  nūmine	  nūminibus
+vocative	  nūmen	    nūmina
+`;
+
+    function wordObjectFrom(text) {
+      text = text.toLowerCase() // HACK HACK
+                 .replace(/ū/g,'u') // HACK...
+                 .replace(/ē/g,'e')
+                 .replace(/ī/g,'i')
+                 .replace(/ō/g,'o')
+                 .replace(/ū/g,'u');
+      var map = {
+          nom: /nominative\s+([^\s]+)\s+([^\s]+)/g
+        , gen: /genitive\s+([^\s]+)\s+([^\s]+)/g
+        , dat: /dative\s+([^\s]+)\s+([^\s]+)/g
+        , acc: /accusative\s+([^\s]+)\s+([^\s]+)/g
+        , abl: /ablative\s+([^\s]+)\s+([^\s]+)/g
+        // , voc: /vocative\s+([^\s]+)\s+([^\s]+)/g
+      };
+
+      var o = {};
+      for (var key in map) {
+        var res = map[key].exec(text);
+        if (!res) throw new Error('could not find "' + key + '" in text');
+        o[key]       = res[1];
+        o[key+'_pl'] = res[2];
+      }
+      var res = /([^\s]+)\sdeclension/g.exec(text);
+      o.dec = [null, 'first', 'second', 'third', 'fourth'].indexOf((res?res[1]:'').toLowerCase());
+      if (o.dec == -1) {
+        o.dec = null;
+        console.warn('declension not found');
+      }
+      return o;
+    }
+
+    var parsed = wordObjectFrom(pasted);
+    document.body.innerHTML = template("noun-form", parsed);
+
   </script>
 </html>
