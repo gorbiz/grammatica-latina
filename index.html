@@ -5,7 +5,8 @@
     <title>Grammatica Latina</title>
     <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
     <style>
-      * { font-family: 'Cinzel', serif; }
+      * { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+      th, p, p *, #counter { font-family: 'Cinzel', serif; }
       .demo td, th { padding: .25em; }
       .demo th {
         text-align: left;
@@ -14,8 +15,11 @@
         background: #f0f0f0;
       }
       input { border-color: transparent; }
+      input[type="text"] {
+        width: 14em;
+        font-size: 1.1em;
+      }
       input[readonly] {
-        font-weight: bold;
         background: transparent;
       }
       input[type="submit"] { display: none; }
