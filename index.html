@@ -20,13 +20,22 @@
       }
       input[type="submit"] { display: none; }
 
+      #counter {
+        position: fixed;
+        top: 0;
+        right: 1em;
+        font-size: 1.75em;
+        font-weight: bold;
+        color: #555;
+      }
+
       .help-chart {
         width: 100%;
       }
     </style>
 
     <script type="text/template" id="noun-form">
-      <form>
+      <form id="noun-adj-form" onsubmit="return next();">
         <table class="demo">
           <caption></caption>
           <thead>
@@ -158,11 +167,22 @@
   </head>
 
   <body>
+    <p id="counter"></p>
+    <div id="wrap"></div>
   </body>
 
   <script src="latin.js" charset="utf-8"></script>
   <script>
-    var phrases = parse(document.getElementById('noun-adj-1').innerText);
-    document.body.innerHTML = template('noun-form', phrases[1]);
+    var words = parse(document.getElementById('noun-adj-1').innerText);
+    var index = 0;
+
+    function next() {
+      if (index++ == 0) words = shuffle(words);
+      if (index >= words.length) index = 0;
+      document.getElementById('wrap').innerHTML = template('noun-form', words[index]);
+      document.getElementById('counter').innerHTML = index + ' / ' + words.length;
+      return false;
+    }
+    next();
   </script>
 </html>

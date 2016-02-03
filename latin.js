@@ -1,3 +1,14 @@
+function shuffle(array) {
+  var tmp, current, top = array.length;
+  if (top) while(--top) {
+    current = Math.floor(Math.random() * (top + 1));
+    tmp = array[current];
+    array[current] = array[top];
+    array[top] = tmp;
+  }
+  return array;
+}
+
 function removeMacrons(text) {
   return text.replace(/ā/g,'a').replace(/Ã/g,'A')
              .replace(/ē/g,'e').replace(/Ē/g,'E')
