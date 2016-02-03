@@ -185,6 +185,7 @@
       if (index++ == 0) words = shuffle(words);
       if (index >= words.length) index = 0;
       document.getElementById('wrap').innerHTML = template('noun-form', words[index]);
+      document.querySelector('[autofocus]').focus();
       document.getElementById('counter').innerHTML = index + ' / ' + words.length;
       return false;
     }
