@@ -15,7 +15,7 @@ function wordObjectFrom(text) {
 
   var o = {};
   ['nominative', 'genitive', 'dative', 'accusative', 'ablative'/*, 'vocative'*/].map(function(caze) {
-    var res = (new RegExp(caze + '\\s+([^\\s]+)\\s+([^\\s]+)', 'g')).exec(text);
+    var res = (new RegExp(caze + '\\s+(.+?)\\s\\s+(.+)', 'g')).exec(text);
     if (!res) throw new Error('could not find "' + caze + '" in text');
     o[caze.substr(0, 3)]         = res[1];
     o[caze.substr(0, 3) + '_pl'] = res[2];
