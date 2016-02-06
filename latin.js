@@ -32,9 +32,8 @@ function wordObjectFrom(text) {
     o[caze.substr(0, 3) + '_pl'] = res[2];
   });
   o.gender = (/(.+)\sgender/g.exec(text) || ['', '?'])[1];
-  o.dec = ['NA', 'first', 'second', 'third', 'fourth'].indexOf(((/([^\s]+)\sdeclension/g.exec(text) || ['', 'NA'])[1]).toLowerCase());
+  o.dec = (/\s*(.+)\sdeclension/g.exec(text) || ['', false])[1];
   if (!o.dec) console.warn('declension not found');
-  o.dec_roman = ['', 'I', 'II', 'III', 'IV', 'V'][o.dec];
   return o;
 }
 
