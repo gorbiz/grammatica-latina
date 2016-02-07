@@ -22,7 +22,7 @@ function parse(text) {
 }
 
 function wordObjectFrom(text) {
-  text = removeMacrons(text.toLowerCase());
+  text = text.toLowerCase();
 
   var o = {};
   ['nominative', 'genitive', 'dative', 'accusative', 'ablative'/*, 'vocative'*/].map(function(caze) {

@@ -19,9 +19,10 @@
         width: 14em;
         font-size: 1.1em;
       }
-      input[readonly] {
-        background: transparent;
-      }
+      input.correct         { background-color: #cfc; }
+      input.correct-macrons { border-bottom-color: #0f0; }
+
+      input[readonly] { background: transparent; }
       input[type="submit"] { display: none; }
 
       .reveal-on-hover {
@@ -62,28 +63,28 @@
           <tbody>
             <tr>
               <th>nominative</th>
-              <td><input type="text" pattern="%nom%"    required autofocus /></td>
-              <td><input type="text" pattern="%nom_pl%" required /></td>
+              <td><input type="text" correct="%nom%"    required autofocus /></td>
+              <td><input type="text" correct="%nom_pl%" required /></td>
             </tr>
             <tr>
               <th>genitiv</th>
-              <td><input type="text" pattern="%gen%"    value="%gen%"   readonly disabled /></td>
-              <td><input type="text" pattern="%gen_pl%" value="%gen_pl%" readonly disabled /></td>
+              <td><input type="text" correct="%gen%"    value="%gen%"   readonly disabled /></td>
+              <td><input type="text" correct="%gen_pl%" value="%gen_pl%" readonly disabled /></td>
             </tr>
             <tr>
               <th>dativ</th>
-              <td><input type="text" pattern="%dat%"    value="%dat%" readonly disabled /></td>
-              <td><input type="text" pattern="%dat_pl%" value="%dat_pl%" readonly disabled /></td>
+              <td><input type="text" correct="%dat%"    value="%dat%" readonly disabled /></td>
+              <td><input type="text" correct="%dat_pl%" value="%dat_pl%" readonly disabled /></td>
             </tr>
             <tr>
               <th>ackusativ</th>
-              <td><input type="text" pattern="%acc%"    required /></td>
-              <td><input type="text" pattern="%acc_pl%" required /></td>
+              <td><input type="text" correct="%acc%"    required /></td>
+              <td><input type="text" correct="%acc_pl%" required /></td>
             </tr>
             <tr>
               <th>ablativ</th>
-              <td><input type="text" pattern="%abl%"    value="%abl%"  readonly disabled /></td>
-              <td><input type="text" pattern="%abl_pl%" value="%abl_pl%" readonly disabled /></td>
+              <td><input type="text" correct="%abl%"    value="%abl%"  readonly disabled /></td>
+              <td><input type="text" correct="%abl_pl%" value="%abl_pl%" readonly disabled /></td>
             </tr>
           <tbody>
         </table>
@@ -196,6 +197,18 @@
       document.getElementById('wrap').innerHTML = template('noun-form', words[index]);
       document.querySelector('[autofocus]').focus();
       document.getElementById('counter').innerHTML = index + ' / ' + words.length;
+
+      // check answer onBlur
+      [].forEach.call(document.querySelectorAll('input[type=text]'), function(inp) {
+        inp.onblur = function(e) {
+          var t = e.target;
+          var answer  = t.value;
+          var correct = t.getAttribute('correct');
+          t.classList.toggle('correct', removeMacrons(answer) == removeMacrons(correct));
+          t.classList.toggle('correct-macrons', answer == correct);
+        }
+      });
+
       return false;
     }
     next();
