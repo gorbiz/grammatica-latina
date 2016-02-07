@@ -24,6 +24,16 @@
       }
       input[type="submit"] { display: none; }
 
+      .reveal-on-hover {
+        visibility: hidden;
+      }
+      .secret-box:hover .reveal-on-hover {
+        visibility: visible;
+      }
+      p.secret-box {
+        margin: 0.5em;
+      }
+
       #counter {
         position: fixed;
         top: 0;
@@ -77,8 +87,8 @@
             </tr>
           <tbody>
         </table>
-        <p>Declension: <strong>%dec%</strong><br>
-           Gender: <strong>%gender%</strong></p>
+          <p class="secret-box">Declension: <strong class="reveal-on-hover">%dec%</strong></p>
+          <p class="secret-box">Gender: <strong class="reveal-on-hover">%gender%</strong></p>
         <input type="submit" value="Submit" />
       </form>
 
